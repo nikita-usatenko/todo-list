@@ -11,29 +11,50 @@ const TodoStore = Reflux.createStore({
 
   init: function () {
     this.state = [];
-    this.trigger(this.state);
+  },
+
+  getInitialState: function () {
+    return this.state;
   },
 
   throwError: function (err) {
     this.trigger(err);
   },
 
-  addTodo: function (description, status) {
-    this.state.push(new Todo(description, status));
+  addTodo: function (description, status, createdAt) {
+    this.state.push(new Todo(description, status, createdAt));
     this.trigger(this.state);
   },
 
-  deleteTodo: function () {
-    console.log(this.state);
+  deleteTodo: function (createdAt) {
+    this.trigger(
+        this.state.filter(function (todo) {
+          return todo.createdAt != createdAt;
+        })
+    );
   },
 
   clearCompleted: function () {
-    this.state.todo = this.state.todo.map((todo) => {
-      if (!todo.getStatus()) {
-        return todo;
-      }
-    });
-    this.trigger(this.state);
+    this.trigger(
+        this.state.filter(function (todo) {
+          return !todo.status;
+        })
+    );
+  },
+
+  changeStatus: function (createdAt, status) {
+    this.trigger(
+        this.state.map(function (todo) {
+          if (createdAt) {
+            if (createdAt == todo.createdAt) {
+              todo.status = status;
+            }
+          } else {
+            todo.status = status;
+          }
+          return todo;
+        })
+    );
   }
 });
 

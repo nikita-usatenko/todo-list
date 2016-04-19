@@ -1,6 +1,7 @@
-const Todo = function (description, status) {
+const Todo = function (description, status, createdAt) {
   this.description = description;
   this.status = status;
+  this.createdAt = createdAt;
 };
 
 Todo.prototype.getDescription = function () {

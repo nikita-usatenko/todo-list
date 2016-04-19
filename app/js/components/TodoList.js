@@ -13,25 +13,47 @@ const TodoList = React.createClass({
     Reflux.connect(TodoStore, 'todoStore')
   ],
 
+  FILTERS: {
+    TODO_ALL: '',
+    TODO_DONE: 'done',
+    TODO_ACTIVE: 'active'
+  },
+
   getInitialState: function () {
     return {
       value: '',
-      todoStore: []
+      filter: this.FILTERS.TODO_ALL,
+      selected: false
     }
   },
 
   render: function () {
-    console.log('aaaa');
+    var self = this;
+    var todos = this.state.todoStore.filter(function (todo) {
+      return self._filter(todo);
+    });
+
+
     return (
         <todo-list>
-          <form onSubmit={this._onSubmit}>
-            <input type="text" value={this.state.value} onChange={this._onChange} />
-            <input type="submit" />
-            {
-              this.state.todoStore.forEach(function (todo) {
-                return <TodoItem data={todo}></TodoItem>;
-              })
-            }
+          <form onSubmit={this._onSubmit} className="todo-app">
+            <div className="heading">
+              <input type="checkbox" onChange={this._selectAll} />
+              <input type="text" value={this.state.value} onChange={this._onChange} />
+              <input type="submit" />
+            </div>
+            <div className="list">
+              {
+                todos.map(function (todo) {
+                  return <TodoItem todo={todo} key={todo.createdAt} onChange={self._onStatusChange} onRemove={self._onRemove}></TodoItem>;
+                })
+              }
+            </div>
+            <div className="footer">
+              <a href="#" data-filter={this.FILTERS.TODO_ALL} onClick={this._switchFilter}>All</a>
+              <a href="#" data-filter={this.FILTERS.TODO_ACTIVE} onClick={this._switchFilter}>Active</a>
+              <a href="#" data-filter={this.FILTERS.TODO_DONE} onClick={this._switchFilter}>Done</a>
+            </div>
           </form>
         </todo-list>
     );
@@ -39,13 +61,40 @@ const TodoList = React.createClass({
 
   _onSubmit: function (e) {
     if (this.state.value.length) {
-      TodoActions.addTodo(this.state.value, false);
+      TodoActions.addTodo(this.state.value, false, Date.now());
+      this.setState({value: ''});
     }
     e.preventDefault();
   },
 
   _onChange: function(e) {
     this.setState({value: e.target.value});
+  },
+
+  _selectAll: function () {
+    var self = this;
+
+    this.setState({selected: !this.state.selected}, function () {
+      TodoActions.changeStatus(null, self.state.selected);
+    });
+  },
+
+  _filter: function (todo) {
+    switch(this.state.filter) {
+      case this.FILTERS.TODO_DONE: return todo.status;
+      case this.FILTERS.TODO_ACTIVE: return !todo.status;
+    }
+
+    return true;
+  },
+
+  _switchFilter: function (e) {
+    var self = this;
+
+    this.setState({filter: e.currentTarget.dataset.filter}, function () {
+      self.render();
+    });
+    e.preventDefault();
   }
 });
 
