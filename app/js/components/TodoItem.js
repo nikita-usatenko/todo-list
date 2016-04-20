@@ -20,10 +20,10 @@ const TodoItem = React.createClass({
   render: function () {
     return (
         <todo-item>
-          <div className={this.props.todo.status ? 'done': null}>
+          <div className={['list-item', this.props.todo.status ? 'done': null].join(' ')}>
             <input type="checkbox" checked={this.props.todo.status} onChange={this._onChange} />
             <span>{this.props.todo.description}</span>
-            <button type="button" onClick={this._onClick}>Remove</button>
+            <button type="button" className="remove" onClick={this._onClick}>x</button>
           </div>
         </todo-item>
     );

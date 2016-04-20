@@ -1,0 +1,53 @@
+.todo-list {
+  width: 80%;
+  min-width: $min-width;
+  margin: $vertical-padding auto;
+  padding: 0;
+  background: $background--lighter;
+  border: 1px solid $background--gray-dark;
+  -webkit-border-radius: $border-radius;
+  -moz-border-radius: $border-radius;
+  border-radius: $border-radius;
+  -webkit-box-shadow:  5px 5px 10px $background--gray-dark;
+  -moz-box-shadow:  5px 5px 10px $background--gray-dark;
+  box-shadow:  5px 5px 10px $background--gray-dark;
+
+  input, button {
+    outline: none;
+  }
+
+  * {
+    color: $background--dark;
+  }
+
+  .heading {
+    margin: 0;
+
+    &.list-item {
+      input[type=text] {
+        width: 90%;
+        border: none;
+        line-height: $font-size--lg;
+        font-size: $font-size--lg;
+      }
+    }
+  }
+
+  .footer {
+    text-align: center;
+    padding: $vertical-padding 0;
+
+    > a {
+      text-decoration: none;
+      margin: $vertical-padding $horizontal-padding;
+      padding: ($vertical-padding / 2) ($horizontal-padding / 2);
+    }
+  }
+
+  .current {
+    border: 1px solid $background--gray-dark;
+    -webkit-border-radius: $border-radius;
+    -moz-border-radius: $border-radius;
+    border-radius: $border-radius;
+  }
+}

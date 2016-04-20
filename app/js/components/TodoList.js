@@ -36,11 +36,10 @@ const TodoList = React.createClass({
 
     return (
         <todo-list>
-          <form onSubmit={this._onSubmit} className="todo-app">
-            <div className="heading">
+          <form onSubmit={this._onSubmit} className="todo-list">
+            <div className="heading list-item">
               <input type="checkbox" onChange={this._selectAll} />
-              <input type="text" value={this.state.value} onChange={this._onChange} />
-              <input type="submit" />
+              <input type="text" value={this.state.value} onChange={this._onChange} placeholder="Todo"/>
             </div>
             <div className="list">
               {
@@ -50,9 +49,9 @@ const TodoList = React.createClass({
               }
             </div>
             <div className="footer">
-              <a href="#" data-filter={this.FILTERS.TODO_ALL} onClick={this._switchFilter}>All</a>
-              <a href="#" data-filter={this.FILTERS.TODO_ACTIVE} onClick={this._switchFilter}>Active</a>
-              <a href="#" data-filter={this.FILTERS.TODO_DONE} onClick={this._switchFilter}>Done</a>
+              <a href="#" className={this.state.filter == this.FILTERS.TODO_ALL ? 'current': null} data-filter={this.FILTERS.TODO_ALL} onClick={this._switchFilter}>All</a>
+              <a href="#" className={this.state.filter == this.FILTERS.TODO_ACTIVE ? 'current': null} data-filter={this.FILTERS.TODO_ACTIVE} onClick={this._switchFilter}>Active</a>
+              <a href="#" className={this.state.filter == this.FILTERS.TODO_DONE ? 'current': null} data-filter={this.FILTERS.TODO_DONE} onClick={this._switchFilter}>Done</a>
             </div>
           </form>
         </todo-list>

@@ -27,11 +27,11 @@ const TodoStore = Reflux.createStore({
   },
 
   deleteTodo: function (createdAt) {
-    this.trigger(
-        this.state.filter(function (todo) {
-          return todo.createdAt != createdAt;
-        })
-    );
+    this.state = this.state.filter(function (todo) {
+      return todo.createdAt != createdAt;
+    });
+
+    this.trigger(this.state);
   },
 
   clearCompleted: function () {

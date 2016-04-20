@@ -2,7 +2,9 @@
 $font-color--dark: #333;
 $font-color--light: #fff;
 $background--light: #eee;
+$background--lighter: #fff;
 $background--dark: #222;
+$background--gray-dark: #ccc;
 $blue: #1f8de2;
 $green: #1fe27b;
 $red: #e21f3f;
@@ -17,3 +19,9 @@ $font-size--sm: 12px;
 $font-size--md: 16px;
 $font-size--lg: 24px;
 $font-size--xl: 32px;
+
+$horizontal-padding: 18px;
+$vertical-padding: ($horizontal-padding / 2);
+$min-width: 300px;
+$checkbox-size: 25px;
+$border-radius: 2px;
