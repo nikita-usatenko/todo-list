@@ -17,12 +17,12 @@
   }
 
   > *:nth-child(2) {
-    width: 75%;
+    width: 85%;
     padding: ($vertical-padding / 2) ($horizontal-padding / 2);
   }
 
   > *:nth-child(3) {
-    width: 15%;
+    width: 5%;
   }
 
   &.done {
